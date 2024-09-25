@@ -5,6 +5,9 @@ from routers import (
     user_router as user
 )
 
+import api.app.database as db
+
+db.start_db()
 
 app = FastAPI()
 app.include_router(bird.router)
