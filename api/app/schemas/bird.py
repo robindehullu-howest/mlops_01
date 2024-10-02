@@ -11,5 +11,8 @@ class Bird(BaseModel):
     food: dict
     see: str
 
+    class Config:
+        from_attributes = True
+
     def sayHello(self):
         return f"Hello {self.name}!"

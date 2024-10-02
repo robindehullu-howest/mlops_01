@@ -1,4 +1,14 @@
 services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+      - "7860:7860"
+    environment:
+      - HUGGINGFACE_TOKEN_BIRDS=${HUGGINGFACE_TOKEN_BIRDS}
+    depends_on:
+      - mariadb
+
   mariadb:
     image: mariadb:11.4
     container_name: mariadb
@@ -7,7 +17,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
+    expose:
       - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
@@ -19,6 +29,7 @@ services:
         - "8080:8080"
       environment:
         ADMINER_DEFAULT_SERVER: mariadb
+      
 
 volumes:
   mariadb_data:
